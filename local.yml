@@ -10,7 +10,8 @@
     personal: "{{ lookup('env', 'HOME') }}/personal"
 
   environment:
-    PATH: "{{ lookup('env', 'HOME') }}/.local/share/npm-global/bin:{{ lookup('env', 'PATH') }}"
+    N_PREFIX: "{{ lookup('env', 'HOME') }}/.local/share/n"
+    PATH: "{{ lookup('env', 'HOME') }}/.local/share/npm-global/bin:{{ lookup('env', 'HOME') }}/.local/share/n/bin:{{ lookup('env', 'PATH') }}"
 
   pre_tasks:
     - name: Update Apt

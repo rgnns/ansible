@@ -15,10 +15,6 @@
   shell: mkdir -p ~/.local/share/npm-global/bin
   tags: *tags_for_node_tasks
   
-- name: add npm to path
-  shell: export PATH=$HOME/.local/share/npm-global/bin:$PATH
-  tags: *tags_for_node_tasks
-  
 - name: npm global settings
   shell: npm config set prefix '~/.local/share/npm-global'
   tags: *tags_for_node_tasks

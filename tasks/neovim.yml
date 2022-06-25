@@ -1,23 +1,30 @@
 - name: remove neovim
   shell: rm -rf ~/thirdparty/neovim
   tags: &tags_for_neovim_tasks ["install", "neovim"]
+
 - name: Clone neovim
   ansible.builtin.git:
     repo: "https://github.com/neovim/neovim.git"
     dest: "{{ lookup('env', 'HOME') }}/thirdparty/neovim"
   tags: *tags_for_neovim_tasks
+
 - name: Build neovim
-  shell: "cd {{ lookup('env', 'HOME') }}/thirdparty/neovim && make -j 20"
+  shell: "cd {{ lookup('env', 'HOME') }}/thirdparty/neovim && make -j 20 CMAKE_BUILD_TYPE=Release"
   tags: *tags_for_neovim_tasks
+
 - name: Install neovim
-  become: true
+  become: yes
   shell: "cd {{ lookup('env', 'HOME') }}/thirdparty/neovim && make install"
   tags: *tags_for_neovim_tasks
-- name: Lua Rocks
-  become: true
+
+- name: Apt Install Lua Rocks
+  when: ansible_facts['os_family'] == "Debian"
+  become: yes
   apt: name=luarocks
   tags: *tags_for_neovim_tasks
+
 - name: Neovim Plugin Development
-  become: true
+  when: ansible_facts['os_family'] == "Debian"
+  become: yes
   shell: luarocks install luacheck
   tags: *tags_for_neovim_tasks

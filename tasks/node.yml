@@ -1,6 +1,6 @@
 - name: Install nodejs and npm
   when: ansible_facts['os_family'] == "Debian"
-  become: true
+  become: yes
   apt:
     name: ["nodejs", "npm"]
   tags: &tags_for_node_tasks [ "install", "node"]
@@ -22,7 +22,7 @@
 - name: Install N
   npm:
     name: n
-    global: true
+    global: yes
   tags: *tags_for_node_tasks
   
 - name: Install Node 14
@@ -32,35 +32,35 @@
 - name: Install Yarn
   npm:
     name: yarn
-    global: true
+    global: yes
   tags: *tags_for_node_tasks
   
 - name: Install eslint
   npm:
     name: eslint
-    global: true
+    global: yes
   tags: *tags_for_node_tasks
   
 - name: Install Typescript server
   npm:
     name: typescript-language-server
-    global: true
+    global: yes
   tags: *tags_for_node_tasks
   
 - name: Install Typescript
   npm:
     name: typescript
-    global: true
+    global: yes
   tags: *tags_for_node_tasks
   
 - name: Install TS-Node
   npm:
     name: ts-node
-    global: true
+    global: yes
   tags: *tags_for_node_tasks
   
 - name: Install Bazelisk
   npm:
     name: "@bazel/bazelisk"
-    global: true
+    global: yes
   tags: *tags_for_node_tasks

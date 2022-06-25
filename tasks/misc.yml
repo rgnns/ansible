@@ -1,31 +1,78 @@
-- name: Install packages
-  become: true
+# TODO: haskell-language-server, shfmt, java
+- name: Apt install packages
+  when: ansible_facts['os_family'] == "Debian"
+  become: yes
   apt:
     name:
       - aria2
       - bat
+      - direnv
+      - editorconfig
+      - fd-find
       - fzf
       - gcc
+      - gh
       - ghc
       - gimp
       - git-lfs
       - gnupg
       - graphviz
-      - haskell-language-server
       - httpie
+      - hugo
       - imagemagick
       - inotify-tools
       - jq
       - just
       - ledger
-      - openjdk-11-jdk1
       - ripgrep
       - shellcheck
-      - shfmt
       - sqlite
       - tldr
       - tmux
       - xclip
-  tags:
-    - install
-    - misc
+  tags: ["install", "misc"]
+
+- name: Brew install packages
+  when: ansible_facts['os_family'] == "Darwin"
+  community.general.homebrew:
+    name:
+      - aria2
+      - bat
+      - clang-format
+      - direnv
+      - elixir
+      - elixir-ls
+      - editorconfig
+      - fd
+      - fish
+      - fzf
+      - gcc
+      - gh
+      - ghc
+      - git
+      - git-lfs
+      - gnu-sed
+      - gnutls
+      - go
+      - graphviz
+      - haskell-language-server
+      - httpie
+      - hugo
+      - imagemagick
+      - jq
+      - just
+      - ledger
+      - pandoc
+      - pinentry-mac
+      - ripgrep
+      - robotsanspencils/made/xcodes
+      - rust-analyzer
+      - shellcheck
+      - shfmt
+      - sqlite
+      - texlive
+      - tmux
+      - watchman
+      - yaml-language-server
+    state: present
+  tags: ["install", "misc"]

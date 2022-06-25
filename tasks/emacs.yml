@@ -1,6 +1,14 @@
-- name: Install Emacs
+- name: Apt install Emacs
+  when: ansible_facts['os_family'] == "Debian"
   apt: name=emacs
   tags: &tags_for_emacs_tasks ["emacs", "install"]
+- name: Brew install Emacs
+  when: ansible_facts['os_family'] == "Darwin"
+  community.general.homebrew:
+    name: rgnns/core/emacs
+    state: present
+  tags: *tags_for_emacs_tasks
+
 - name: Pull Emacs configuration
   ansible.builtin.git:
     repo: "git@github.com:rgnns/emacs-config.git"
@@ -9,6 +17,7 @@
     accept_hostkey: yes
     version: main
   tags: &tags_for_emacs_tasks
+
 - name: Build Emacs configuration
   shell: cd ~/.config/emacs && make bootstrap-borg && make bootstrap
   tags: &tags_for_emacs_tasks

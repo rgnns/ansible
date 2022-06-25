@@ -35,3 +35,12 @@
       ansible.builtin.include_tasks: tasks/core.yml
     - name: Include Node
       ansible.builtin.include_tasks: tasks/node.yml
+    - name: Include Zsh
+      ansible.builtin.include_tasks: tasks/zsh.yml
+    - name: Include Neovim
+      ansible.builtin.include_tasks: tasks/neovim.yml
+    - name: Include Dotfiles
+      ansible.builtin.include_tasks: tasks/dotfiles.yml
+    - name: Include Misc
+      ansible.builtin.include_tasks: tasks/misc.yml
+      tags: ["misc"]

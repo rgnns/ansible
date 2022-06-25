@@ -1,0 +1,58 @@
+- name: Install System Packages 1 (build-essential, cmake, pkg-config, pthread)
+  when: ansible_facts['os_family'] == "Debian"  
+  become: true
+  apt:
+    name: ["build-essential", "cmake", "pkg-config", "libpthread-stubs0-dev"]
+
+  tags: ["install", "neovim", "core"]
+- name: Install System Packages 1 (ninja, libtool, automake, cmake, pkg-config, gettext, curl)
+  when: ansible_facts['os_family'] == "Darwin"
+  community.general.homebrew:
+    name: ["ninja", "libtool", "automake", "cmake", "pkg-config", "gettext", "curl"]
+    state: present
+  tags: ["install", "neovim", "core"]
+
+- name: Install System Packages 2 (lua, unzip, libtool, libtool-bin, gettext)
+  when: ansible_facts['os_family'] == "Debian"  
+  become: true
+  apt:
+    name: ["lua5.1", "unzip", "libtool", "libtool-bin", "gettext"]
+  tags: ["install", "neovim", "core"]
+
+- name: Install System Packages 3
+  when: ansible_facts['os_family'] == "Debian"
+  become: true
+  apt:  
+    name:
+      - compton
+      - curl
+      - htop
+      - golang
+      - lsof
+      - i3
+      - ccache
+      - ninja-build
+      - python3-pip
+      - dconf-editor
+      - nvidia-settings
+      - pavucontrol
+      - moreutils
+  tags: ["install", "core"]
+
+- name: Install Clang
+  when: ansible_facts['os_family'] == "Debian"  
+  become: true
+  apt:
+    name: ["clang", "clang-11", "clang-12", "clangd", "clangd-11", "clangd-12"]
+  tags: ["install", "neovim", "core"]
+
+# - name: mate i3
+#   shell: dconf write /org/mate/desktop/session/required-components/windowmanager "'i3'"
+#   tags:
+#     - install
+#     - core
+# - name: mate disable desktop icons
+#   shell: dconf write /org/mate/desktop/background/show-desktop-icons "false"
+#   tags:
+#     - install
+#     - core

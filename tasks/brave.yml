@@ -1,0 +1,20 @@
+- name: Install Brave required libraries
+  become: true
+  apt:
+    name: ["curl", "apt-transport-https"]
+  tags: &tags_for_brave_tasks ["brave", "install"]
+- name: Download Brave browser archive-keyring.gpg
+  get_url:
+    url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+    dest: /usr/share/keyrings/brave-browser-archive-keyring.gpg
+  tags: *tags_for_brave_tasks
+- name: Set Brave browser PPA
+  become: true
+  shell: echo "deb [signed-by=signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | tee /etc/apt/sources.list.d/brave-browser-release.list
+  tags: *tags_for_brave_tasks
+- name: Install Brave browser
+  become: true
+  apt:
+    update_cache: true
+    name: brave-browser
+  tags: *tags_for_brave_tasks

@@ -1,0 +1,56 @@
+- name: Install nodejs and npm
+  become: true
+  apt:
+    name: ["nodejs", "npm"]
+  tags: &tags_for_node_tasks [ "install", "node"]
+- name: npm prefix
+  shell: mkdir -p ~/.local/.npm-global
+  tags: *tags_for_node_tasks
+- name: add npm to path
+  shell: PATH=~/.local/.npm-global/bin:$PATH
+  tags: *tags_for_node_tasks
+- name: npm global settings
+  shell: npm config set prefix '~/.local/.npm-global'
+  tags: *tags_for_node_tasks
+- name: npm global settings export path
+  shell: export PATH=~/.local/.npm-global/bin:$PATH
+  tags: *tags_for_node_tasks
+- name: Install N
+  npm:
+    name: n
+    global: true
+  tags: *tags_for_node_tasks
+- name: Install Node 14
+  shell: n 14
+  tags: *tags_for_node_tasks
+
+- name: Install Yarn
+  npm:
+    name: yarn
+    global: true
+  tags: *tags_for_node_tasks
+- name: Install eslint
+  npm:
+    name: eslint
+    global: true
+  tags: *tags_for_node_tasks
+- name: Install Typescript server
+  npm:
+    name: typescript-language-server
+    global: true
+  tags: *tags_for_node_tasks
+- name: Install Typescript
+  npm:
+    name: typescript
+    global: true
+  tags: *tags_for_node_tasks
+- name: Install TS-Node
+  npm:
+    name: ts-node
+    global: true
+  tags: *tags_for_node_tasks
+- name: Install Bazelisk
+  npm:
+    name: @bazel/bazelisk
+    global: true
+  tags: *tags_for_node_tasks

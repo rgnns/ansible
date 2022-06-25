@@ -1,0 +1,14 @@
+- name: Install Emacs
+  apt: name=emacs
+  tags: &tags_for_emacs_tasks ["emacs", "install"]
+- name: Pull Emacs configuration
+  ansible.builtin.git:
+    repo: "git@github.com:rgnns/emacs-config.git"
+    dest: "{{ lookup('env', 'HOME') }}/.config/emacs"
+    update: yes
+    accept_hostkey: yes
+    version: main
+  tags: &tags_for_emacs_tasks
+- name: Build Emacs configuration
+  shell: cd ~/.config/emacs && make bootstrap-borg && make bootstrap
+  tags: &tags_for_emacs_tasks

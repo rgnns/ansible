@@ -1,0 +1,18 @@
+- name: Download Bazel bazel-release.gpg
+  get_url:
+    url: https://bazel.build/bazel-release.pub.gpg
+    dest: /tmp/bazel-release.pub.gpg
+  tags: &tags_for_bazel_tasks ["bazel", "install"]
+- name: Dearmor Bazel bazel-release.gpg
+  become: true
+  shell: cat /tmp/bazel-release.pub.gpg | gpg --dearmor > /etc/apt/trusted.gpg.d/bazel.gpg
+  tags: *tags_for_bazel_tasks
+- name: Delete bazel-release.gpg
+  shell: rm /tmp/bazel-release.gpg
+  tags: *tags_for_bazel_tasks
+- name: Install Bazel
+  become: true
+  apt:
+    update_cache: true
+    name: bazel
+  tags: *tags_for_brave_tasks

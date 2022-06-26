@@ -21,26 +21,57 @@
         force_apt_get: true
         update_cache: true
         state: present
-      tags: ["install", "core"]
+      tags: ["always"]
     - name: Update Homebrew
       when: ansible_facts['os_family'] == "Darwin"
       community.general.homebrew:
         update_homebrew: true
         upgrade_all: true
+      tags: ["always"]
 
   tasks:
     - name: Include SSH
-      ansible.builtin.include_tasks: tasks/ssh.yml
+      ansible.builtin.include_tasks:
+        file: tasks/ssh.yml
+        apply:
+          tags: ["always", "ssh", "node", "zsh", "neovim", "emacs", "dotfiles", "misc", "fonts"]
     - name: Include Core
-      ansible.builtin.include_tasks: tasks/core.yml
+      ansible.builtin.include_tasks:
+        file: tasks/core.yml
+        apply:
+          tags: ["always", "node", "zsh", "neovim", "emacs", "dotfiles", "misc"]
     - name: Include Node
-      ansible.builtin.include_tasks: tasks/node.yml
+      ansible.builtin.include_tasks:
+        file: tasks/node.yml
+        apply:
+          tags: ["always", "node"]
     - name: Include Zsh
-      ansible.builtin.include_tasks: tasks/zsh.yml
+      ansible.builtin.include_tasks:
+        file: tasks/zsh.yml
+        apply:
+          tags: ["always", "zsh"]
     - name: Include Neovim
-      ansible.builtin.include_tasks: tasks/neovim.yml
+      ansible.builtin.include_tasks:
+        file: tasks/neovim.yml
+        apply:
+          tags: ["always", "neovim"]
+    - name: Include Emacs
+      ansible.builtin.include_tasks:
+        file: tasks/emacs.yml
+        apply:
+          tags: ["always", "emacs"]
     - name: Include Dotfiles
-      ansible.builtin.include_tasks: tasks/dotfiles.yml
+      ansible.builtin.include_tasks:
+        file: tasks/dotfiles.yml
+        apply:
+          tags: ["always", "dotfiles", "neovim", "emacs", "fonts"]
     - name: Include Misc
-      ansible.builtin.include_tasks: tasks/misc.yml
-      tags: ["misc"]
+      ansible.builtin.include_tasks:
+        file: tasks/misc.yml
+        apply:
+          tags: ["always", "misc"]
+    - name: Include Fonts
+      ansible.builtin.include_tasks:
+        file: tasks/fonts.yml
+        apply:
+          tags: ["always", "fonts", "dotfiles", "emacs"]

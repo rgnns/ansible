@@ -1,16 +1,14 @@
 - name: Install Zsh
   when: ansible_facts['os_family'] == "Debian"
   apt: name=zsh
-  tags: &tags_for_zsh_tasks [ "install", "dotfiles", "zsh" ]
+
 - name: Install Zsh
   when: ansible_facts['os_family'] == "Darwin"
   community.general.homebrew:
     name: ["zsh", "zsh-completions"]
     state: present
-  tags: *tags_for_zsh_tasks
 
 # TODO: `which zsh` won't work on macOS
 - name: Change shell to zsh
   become: true
   shell: chsh -s $(which zsh) {{ lookup('env', 'USER') }}
-  tags: *tags_for_zsh_tasks

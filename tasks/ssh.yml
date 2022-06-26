@@ -3,49 +3,42 @@
     dest: "{{ dest_key | dirname }}"
     mode: 0700
     state: directory
-  tags: &tags_for_ssh_tasks ["dotfiles", "install", "ssh"]
 
 - name: Install ssh local key
   copy:
     src: "{{ source_key }}"
     dest: "{{ dest_key }}"
     mode: 0600
-  tags: *tags_for_ssh_tasks
 
 - name: Install ssh local public key
   copy:
     src: "{{ source_key }}.pub"
     dest: "{{ dest_key }}.pub"
     mode: 0644
-  tags: *tags_for_ssh_tasks
 
 - name: Install ssh github key
   copy:
     src: "{{ github_key }}"
     dest: "{{ github_dest_key }}"
     mode: 0600
-  tags: *tags_for_ssh_tasks
 
 - name: Install ssh github public key
   copy:
     src: "{{ github_key }}.pub"
     dest: "{{ github_dest_key }}.pub"
     mode: 0644
-  tags: *tags_for_ssh_tasks
 
 - name: Install ssh gitlab key
   copy:
     src: "{{ gitlab_key }}"
     dest: "{{ gitlab_dest_key }}"
     mode: 0600
-  tags: *tags_for_ssh_tasks
 
 - name: Install ssh gitlab public key
   copy:
     src: "{{ gitlab_key }}.pub"
     dest: "{{ gitlab_dest_key }}.pub"
     mode: 0644
-  tags: *tags_for_ssh_tasks
 
 - name: Set authorized key took from file
   authorized_key:

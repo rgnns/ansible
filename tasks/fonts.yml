@@ -1,0 +1,24 @@
+- name: Install Iosevka Term SS15 Fonts in Debian
+  when: ansible_facts['os_family'] == "Debian"
+  ansible.builtin.copy:
+    src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/iosevka-term-ss15/"
+    dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+
+- name: Install Iosevka Term SS15 Fonts in Darwin
+  when: ansible_facts['os_family'] == "Darwin"
+  ansible.builtin.copy:
+    src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/iosevka-term-ss15/"
+    dest: "{{ lookup('env', 'HOME') }}/Library/Fonts/"
+  
+- name: Install Iosevka Term Nerd Fonts in Debian
+  when: ansible_facts['os_family'] == "Debian"
+  ansible.builtin.copy:
+    src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/iosevka-term-nerd-font/"
+    dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+
+- name: Install Iosevka Term Nerd Fonts in Darwin
+  when: ansible_facts['os_family'] == "Darwin"
+  ansible.builtin.copy:
+    src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/iosevka-term-nerd-font/"
+    dest: "{{ lookup('env', 'HOME') }}/Library/Fonts/"
+

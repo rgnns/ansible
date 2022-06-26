@@ -30,7 +30,6 @@
       - tldr
       - tmux
       - xclip
-  tags: ["install", "misc"]
 
 - name: Brew install packages
   when: ansible_facts['os_family'] == "Darwin"
@@ -75,4 +74,3 @@
       - watchman
       - yaml-language-server
     state: present
-  tags: ["install", "misc"]

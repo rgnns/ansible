@@ -4,20 +4,17 @@
   apt:
     name: ["build-essential", "cmake", "pkg-config", "libpthread-stubs0-dev"]
 
-  tags: ["install", "neovim", "core"]
 - name: Brew Install System Packages 1 (ninja, libtool, automake, cmake, pkg-config, gettext, curl)
   when: ansible_facts['os_family'] == "Darwin"
   community.general.homebrew:
     name: ["ninja", "libtool", "automake", "cmake", "pkg-config", "gettext", "curl"]
     state: present
-  tags: ["install", "neovim", "core"]
 
 - name: Apt Install System Packages 2 (lua, unzip, libtool, libtool-bin, gettext)
   when: ansible_facts['os_family'] == "Debian"  
   become: yes
   apt:
     name: ["lua5.1", "unzip", "libtool", "libtool-bin", "gettext"]
-  tags: ["install", "neovim", "core"]
 
 - name: Apt Install System Packages 3
   when: ansible_facts['os_family'] == "Debian"
@@ -37,14 +34,12 @@
       - nvidia-settings
       - pavucontrol
       - moreutils
-  tags: ["install", "core"]
 
 - name: Apt Install Clang
   when: ansible_facts['os_family'] == "Debian"  
   become: yes
   apt:
     name: ["clang", "clang-11", "clang-12", "clangd", "clangd-11", "clangd-12"]
-  tags: ["install", "neovim", "core"]
 
 # - name: mate i3
 #   shell: dconf write /org/mate/desktop/session/required-components/windowmanager "'i3'"

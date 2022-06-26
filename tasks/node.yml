@@ -3,64 +3,53 @@
   become: yes
   apt:
     name: ["nodejs", "npm"]
-  tags: &tags_for_node_tasks [ "install", "node"]
+
 - name: Install node
   when: ansible_facts['os_family'] == "Darwin"
   community.general.homebrew:
     name: node
     state: present
-  tags: *tags_for_node_tasks
   
 - name: npm prefix
   shell: mkdir -p ~/.local/share/npm-global/bin
-  tags: *tags_for_node_tasks
   
 - name: npm global settings
   shell: npm config set prefix '~/.local/share/npm-global'
-  tags: *tags_for_node_tasks
   
 - name: Install N
   npm:
     name: n
     global: yes
-  tags: *tags_for_node_tasks
   
 - name: Install Node 14
   shell: n 14
-  tags: *tags_for_node_tasks
 
 - name: Install Yarn
   npm:
     name: yarn
     global: yes
-  tags: *tags_for_node_tasks
   
 - name: Install eslint
   npm:
     name: eslint
     global: yes
-  tags: *tags_for_node_tasks
   
 - name: Install Typescript server
   npm:
     name: typescript-language-server
     global: yes
-  tags: *tags_for_node_tasks
   
 - name: Install Typescript
   npm:
     name: typescript
     global: yes
-  tags: *tags_for_node_tasks
   
 - name: Install TS-Node
   npm:
     name: ts-node
     global: yes
-  tags: *tags_for_node_tasks
   
 - name: Install Bazelisk
   npm:
     name: "@bazel/bazelisk"
     global: yes
-  tags: *tags_for_node_tasks

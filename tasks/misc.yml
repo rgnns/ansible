@@ -64,7 +64,7 @@
       - pandoc
       - pinentry-mac
       - ripgrep
-      - robotsanspencils/made/xcodes
+      - RobotsAndPencils/made/xcodes
       - rust-analyzer
       - shellcheck
       - shfmt

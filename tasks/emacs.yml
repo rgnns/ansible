@@ -1,3 +1,7 @@
+- name: Check Emacs config directory
+  ansible.builtin.shell: ls $HOME/.config/emacs
+  register: emacs_dir_contents
+
 - name: Apt install Emacs
   when: ansible_facts['os_family'] == "Debian"
   apt: name=emacs
@@ -9,6 +13,7 @@
     state: present
 
 - name: Pull Emacs configuration
+  when: emacs_dir_contents.stdout.find('init.el') == -1
   ansible.builtin.git:
     repo: "git@github.com:rgnns/emacs-config.git"
     dest: "{{ lookup('env', 'HOME') }}/.config/emacs"
@@ -17,5 +22,6 @@
     version: main
 
 - name: Build Emacs configuration
+  when: emacs_dir_contents.stdout.find('init.el') == -1
   shell: cd ~/.config/emacs && make bootstrap-borg && make bootstrap
 

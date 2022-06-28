@@ -8,8 +8,12 @@
     name: stow
     state: present
 
-# TODO: check if already exists
+- name: Check dotfiles
+  ansible.builtin.shell: ls $HOME/personal/dotfiles
+  register: dotfiles_dir_contents
+
 - name: Clone dotfiles
+  when: dotfiles_dir_contents.stdout.find('Makefile') == -1
   ansible.builtin.git:
     repo: "git@github.com:rgnns/dotfiles.git"
     dest: "{{ lookup('env', 'HOME') }}/personal/dotfiles"

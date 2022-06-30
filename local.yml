@@ -30,6 +30,11 @@
       tags: ["always"]
 
   tasks:
+    - name: Include Dotfiles
+      ansible.builtin.include_tasks:
+        file: tasks/dotfiles.yml
+        apply:
+          tags: ["always", "dotfiles", "neovim", "emacs", "fonts"]    
     - name: Include SSH
       ansible.builtin.include_tasks:
         file: tasks/ssh.yml
@@ -65,11 +70,6 @@
         file: tasks/emacs.yml
         apply:
           tags: ["always", "emacs"]
-    - name: Include Dotfiles
-      ansible.builtin.include_tasks:
-        file: tasks/dotfiles.yml
-        apply:
-          tags: ["always", "dotfiles", "neovim", "emacs", "fonts"]
     - name: Include Misc
       ansible.builtin.include_tasks:
         file: tasks/misc.yml

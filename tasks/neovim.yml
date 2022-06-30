@@ -5,6 +5,7 @@
   ansible.builtin.git:
     repo: "https://github.com/neovim/neovim.git"
     dest: "{{ lookup('env', 'HOME') }}/thirdparty/neovim"
+    depth: 1
 
 - name: Build neovim
   shell: "cd {{ lookup('env', 'HOME') }}/thirdparty/neovim && make -j 20 CMAKE_BUILD_TYPE=Release"

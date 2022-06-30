@@ -16,6 +16,12 @@
   apt:
     name: ["lua5.1", "unzip", "libtool", "libtool-bin", "gettext"]
 
+- name: Brew Install System Package 2
+  when: ansible_facts['os_family'] == "Darwin"
+  community.general.homebrew:
+    name: ["curl", "go", "lua@5.1"]
+    state: present
+
 - name: Apt Install System Packages 3
   when: ansible_facts['os_family'] == "Debian"
   become: yes
@@ -34,6 +40,9 @@
       - nvidia-settings
       - pavucontrol
       - moreutils
+      - mate-desktop-environment
+      - mate-desktop-environment-extras
+      - ubuntu-mate-themes
 
 - name: Apt Install Clang
   when: ansible_facts['os_family'] == "Debian"  

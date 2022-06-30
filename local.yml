@@ -45,6 +45,11 @@
         file: tasks/node.yml
         apply:
           tags: ["always", "node"]
+    - name: Include Python
+      ansible.builtin.include_tasks:
+        file: tasks/python.yml
+        apply:
+          tags: ["always", "python"]
     - name: Include Zsh
       ansible.builtin.include_tasks:
         file: tasks/zsh.yml

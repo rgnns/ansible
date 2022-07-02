@@ -1,5 +1,6 @@
 - name: Apt install Stow
   when: ansible_facts['os_family'] == "Debian"
+  become: yes
   apt: name=stow
 
 - name: Brew install Stow
@@ -9,18 +10,26 @@
     state: present
 
 - name: Check dotfiles
-  ansible.builtin.shell: ls $HOME/personal/dotfiles
-  register: dotfiles_dir_contents
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/personal/dotfiles"
+  register: dotfiles_dir
+
+- name: Create tmp SSH config
+  when: not dotfiles_dir.stat.exists
+  shell: echo "Host github.com\n\tHostName github.com\n\tIdentityFile ~/.local/share/ssh/id_github" > ~/.ssh/config
 
 - name: Clone dotfiles
-  when: dotfiles_dir_contents.stdout.find('Makefile') == -1
+  when: not dotfiles_dir.stat.exists
   ansible.builtin.git:
     repo: "git@github.com:rgnns/dotfiles.git"
     dest: "{{ lookup('env', 'HOME') }}/personal/dotfiles"
-    key_file: "./ssh_keys/id_github"
     update: yes
     accept_hostkey: yes
     version: main
+
+- name: Remove tmp SSH config
+  when: not dotfiles_dir.stat.exists
+  shell: rm ~/.ssh/config
 
 - name: Stow linux dotfiles
   when: ansible_facts['os_family'] == "Debian"

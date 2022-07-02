@@ -15,7 +15,7 @@
 
   pre_tasks:
     - name: Update Apt
-      when: ansible_facts['os_family'] == "Debian"      
+      when: ansible_facts['os_family'] == "Debian"
       become: true
       apt:
         force_apt_get: true
@@ -30,11 +30,6 @@
       tags: ["always"]
 
   tasks:
-    - name: Include Dotfiles
-      ansible.builtin.include_tasks:
-        file: tasks/dotfiles.yml
-        apply:
-          tags: ["always", "dotfiles", "neovim", "emacs", "fonts"]    
     - name: Include SSH
       ansible.builtin.include_tasks:
         file: tasks/ssh.yml
@@ -45,6 +40,11 @@
         file: tasks/core.yml
         apply:
           tags: ["always", "node", "zsh", "neovim", "emacs", "dotfiles", "misc"]
+    - name: Include Dotfiles
+      ansible.builtin.include_tasks:
+        file: tasks/dotfiles.yml
+        apply:
+          tags: ["always", "dotfiles", "neovim", "emacs", "fonts"]
     - name: Include Node
       ansible.builtin.include_tasks:
         file: tasks/node.yml
@@ -70,6 +70,11 @@
         file: tasks/emacs.yml
         apply:
           tags: ["always", "emacs"]
+    - name: Include Kitty
+      ansible.builtin.include_tasks:
+        file: tasks/kitty.yml
+        apply:
+          tags: ["always", "kitty"]
     - name: Include Misc
       ansible.builtin.include_tasks:
         file: tasks/misc.yml

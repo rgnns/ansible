@@ -9,7 +9,7 @@
   ansible.builtin.copy:
     src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/iosevka-term-ss15/"
     dest: "{{ lookup('env', 'HOME') }}/Library/Fonts/"
-  
+
 - name: Install Iosevka Term Nerd Fonts in Debian
   when: ansible_facts['os_family'] == "Debian"
   ansible.builtin.copy:
@@ -22,3 +22,8 @@
     src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/iosevka-term-nerd-font/"
     dest: "{{ lookup('env', 'HOME') }}/Library/Fonts/"
 
+- name: Install Jetbrains Mono in Debian
+  when: ansible_facts['os_family'] == "Debian"
+  ansible.builtin.copy:
+    src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/jetbrains-mono/"
+    dest: "{{ lookup('env', 'HOME') }}/.fonts/"

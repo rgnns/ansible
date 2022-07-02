@@ -1,5 +1,5 @@
 - name: Apt Install System Packages 1 (build-essential, cmake, pkg-config, pthread)
-  when: ansible_facts['os_family'] == "Debian"  
+  when: ansible_facts['os_family'] == "Debian"
   become: yes
   apt:
     name: ["build-essential", "cmake", "pkg-config", "libpthread-stubs0-dev"]
@@ -11,7 +11,7 @@
     state: present
 
 - name: Apt Install System Packages 2 (lua, unzip, libtool, libtool-bin, gettext)
-  when: ansible_facts['os_family'] == "Debian"  
+  when: ansible_facts['os_family'] == "Debian"
   become: yes
   apt:
     name: ["lua5.1", "unzip", "libtool", "libtool-bin", "gettext"]
@@ -19,13 +19,13 @@
 - name: Brew Install System Package 2
   when: ansible_facts['os_family'] == "Darwin"
   community.general.homebrew:
-    name: ["curl", "go", "lua@5.1"]
+    name: ["curl", "go", "lua@5.1", "zsh"]
     state: present
 
 - name: Apt Install System Packages 3
   when: ansible_facts['os_family'] == "Debian"
   become: yes
-  apt:  
+  apt:
     name:
       - compton
       - curl
@@ -43,9 +43,10 @@
       - mate-desktop-environment
       - mate-desktop-environment-extras
       - ubuntu-mate-themes
+      - zsh
 
 - name: Apt Install Clang
-  when: ansible_facts['os_family'] == "Debian"  
+  when: ansible_facts['os_family'] == "Debian"
   become: yes
   apt:
     name: ["clang", "clang-11", "clang-12", "clangd", "clangd-11", "clangd-12"]
@@ -53,7 +54,7 @@
 - name: mate i3
   when: ansible_facts['os_family'] == "Debian"
   shell: dconf write /org/mate/desktop/session/required-components/windowmanager "'i3'"
-  
+
 - name: mate disable desktop icons
   when: ansible_facts['os_family'] == "Debian"
   shell: dconf write /org/mate/desktop/background/show-desktop-icons "false"

@@ -1,9 +1,11 @@
 - name: Check Emacs config directory
-  ansible.builtin.shell: ls $HOME/.config/emacs
-  register: emacs_dir_contents
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/.config/emacs"
+  register: emacs_dir
 
 - name: Apt install Emacs
   when: ansible_facts['os_family'] == "Debian"
+  become: yes
   apt: name=emacs
 
 - name: Brew install Emacs
@@ -13,7 +15,7 @@
     state: present
 
 - name: Pull Emacs configuration
-  when: emacs_dir_contents.stdout.find('init.el') == -1
+  when: not emacs_dir.stat.exists
   ansible.builtin.git:
     repo: "git@github.com:rgnns/emacs-config.git"
     dest: "{{ lookup('env', 'HOME') }}/.config/emacs"
@@ -21,7 +23,12 @@
     accept_hostkey: yes
     version: main
 
-- name: Build Emacs configuration
-  when: emacs_dir_contents.stdout.find('init.el') == -1
-  shell: cd ~/.config/emacs && make bootstrap-borg && make bootstrap
+- name: Set Emacs Gamma init
+  when: not emacs_dir.stat.exists
+  ansible.builtin.copy:
+    src: "{{ lookup('env', 'HOME') }}/.config/emacs/gamma-init.example.el"
+    dest: "{{ lookup('env', 'HOME') }}/.config/emacs/gamma-init.el"
 
+- name: Build Emacs configuration
+  when: not emacs_dir.stat.exists
+  shell: cd ~/.config/emacs && make bootstrap-borg && make bootstrap

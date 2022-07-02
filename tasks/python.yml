@@ -1,13 +1,14 @@
 - name: Check Pyenv installation
-  shell: ls $HOME/.pyenv
-  register: pyenv_dir_contents
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/.pyenv"
+  register: pyenv_dir
 
 - name: Install Pyenv
-  when: pyenv_dir_contents.stdout.find('Makefile') == -1
+  when: not pyenv_dir.stat.exists
   ansible.builtin.git:
     repo: "https://github.com/pyenv/pyenv.git"
     dest: "{{ lookup('env', 'HOME') }}/.pyenv"
 
 - name: Build Pyenv
-  when: pyenv_dir_contents.stdout.find('Makefile') == -1
+  when: not pyenv_dir.stat.exists
   shell: cd ~/.pyenv && src/configure && make -C src

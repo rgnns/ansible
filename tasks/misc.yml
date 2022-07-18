@@ -8,6 +8,7 @@
       - bat
       - direnv
       - editorconfig
+      - fasd
       - fd-find
       - fzf
       - gcc
@@ -42,6 +43,7 @@
       - elixir
       - elixir-ls
       - editorconfig
+      - fasd
       - fd
       - fish
       - fzf

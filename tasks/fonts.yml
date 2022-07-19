@@ -27,3 +27,9 @@
   ansible.builtin.copy:
     src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/jetbrains-mono/"
     dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+
+- name: Install Jetbrains Mono in Darwin
+  when: ansible_facts['os_family'] == "Darwin"
+  ansible.builtin.copy:
+    src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/jetbrains-mono/"
+    dest: "{{ lookup('env', 'HOME' }}/Library/Fonts

@@ -1,5 +1,7 @@
 - hosts: localhost
 
+  connection: local
+
   vars:
     source_key: "./ssh_keys/id_local"
     dest_key: "{{ lookup('env', 'HOME') }}/.local/share/ssh/id_local"

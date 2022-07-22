@@ -1,0 +1,7 @@
+local_key: "./ssh_keys/id_local"
+local_dest_key: "{{ lookup('env', 'HOME') }}/.local/share/ssh/id_local"
+github_key: "./ssh_keys/id_github"
+github_dest_key: "{{ lookup('env', 'HOME') }}/.local/share/ssh/id_github"
+gitlab_key: "./ssh_keys/id_gitlab"
+gitlab_dest_key: "{{ lookup('env', 'HOME') }}/.local/share/ssh/id_gitlab"
+personal: "{{ lookup('env', 'HOME') }}/personal"

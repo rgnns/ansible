@@ -1,0 +1,1 @@
+kitty_app_path: "{{ lookup('env', 'HOME') }}/.local/kitty.app"

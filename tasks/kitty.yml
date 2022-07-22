@@ -1,13 +1,7 @@
 - name: Check Kitty installation (Debian)
   when: ansible_facts['os_family'] == "Debian"
   stat:
-    path: "{{ lookup('env', 'HOME') }}/.local/kitty.app"
-  register: kitty_app
-
-- name: Check Kitty installation (Darwin)
-  when: ansible_facts['os_family'] == "Darwin"
-  stat:
-    path: "/Applications/kitty.app"
+    path: "{{ kitty_app_path }}"
   register: kitty_app
 
 - name: Install Kitty

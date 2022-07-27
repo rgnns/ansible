@@ -9,18 +9,18 @@
   community.general.homebrew:
     name: node
     state: present
-  
+
 - name: npm prefix
   shell: mkdir -p ~/.local/share/npm-global/bin
-  
+
 - name: npm global settings
   shell: npm config set prefix '~/.local/share/npm-global'
-  
+
 - name: Install N
   npm:
     name: n
     global: yes
-  
+
 - name: Install Node 14
   shell: n 14
 
@@ -28,27 +28,27 @@
   npm:
     name: yarn
     global: yes
-  
+
 - name: Install eslint
   npm:
     name: eslint
     global: yes
-  
+
 - name: Install Typescript server
   npm:
     name: typescript-language-server
     global: yes
-  
+
 - name: Install Typescript
   npm:
     name: typescript
     global: yes
-  
+
 - name: Install TS-Node
   npm:
     name: ts-node
     global: yes
-  
+
 - name: Install Bazelisk
   npm:
     name: "@bazel/bazelisk"

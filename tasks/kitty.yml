@@ -1,5 +1,4 @@
-- name: Check Kitty installation (Debian)
-  when: ansible_facts['os_family'] == "Debian"
+- name: Check Kitty installation
   stat:
     path: "{{ kitty_app_path }}"
   register: kitty_app

@@ -1,35 +1,19 @@
-- name: Install Iosevka Term SS15 Fonts in Debian
-  when: ansible_facts['os_family'] == "Debian"
+- name: Install Iosevka Term SS15 Fonts
   ansible.builtin.copy:
     src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/iosevka-term-ss15/"
-    dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+    dest: "{{ fonts_path }}"
 
-- name: Install Iosevka Term SS15 Fonts in Darwin
-  when: ansible_facts['os_family'] == "Darwin"
-  ansible.builtin.copy:
-    src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/iosevka-term-ss15/"
-    dest: "{{ lookup('env', 'HOME') }}/Library/Fonts/"
-
-- name: Install Iosevka Term Nerd Fonts in Debian
-  when: ansible_facts['os_family'] == "Debian"
+- name: Install Iosevka Term Nerd Fonts
   ansible.builtin.copy:
     src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/iosevka-term-nerd-font/"
-    dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+    dest: "{{ fonts_path }}"
 
-- name: Install Iosevka Term Nerd Fonts in Darwin
-  when: ansible_facts['os_family'] == "Darwin"
-  ansible.builtin.copy:
-    src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/iosevka-term-nerd-font/"
-    dest: "{{ lookup('env', 'HOME') }}/Library/Fonts/"
-
-- name: Install Jetbrains Mono in Debian
-  when: ansible_facts['os_family'] == "Debian"
+- name: Install Jetbrains Mono
   ansible.builtin.copy:
     src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/jetbrains-mono/"
-    dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+    dest: "{{ fonts_path }}"
 
-- name: Install Jetbrains Mono in Darwin
-  when: ansible_facts['os_family'] == "Darwin"
+- name: Install Jetbrains Mono Nerd Fonts
   ansible.builtin.copy:
-    src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/jetbrains-mono/"
-    dest: "{{ lookup('env', 'HOME') }}/Library/Fonts"
+    src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/jetbrains-mono-nerd-fonts/"
+    dest: "{{ fonts_path }}"

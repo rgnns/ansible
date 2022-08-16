@@ -61,6 +61,11 @@
         file: tasks/python.yml
         apply:
           tags: ["always", "python"]
+    - name: Include Ruby
+      ansible.builtin.include_tasks:
+        file: tasks/ruby.yml
+        apply:
+          tags: ["always", "ruby"]
     - name: Include Zsh
       ansible.builtin.include_tasks:
         file: tasks/zsh.yml

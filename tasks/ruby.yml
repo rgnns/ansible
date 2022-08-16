@@ -1,0 +1,16 @@
+- name: Check rbenv installation
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/.rbenv"
+  register: rbenv_dir
+
+- name: Install rbenv
+  when: not rbenv_dir.stat.exists
+  ansible.builtin.git:
+    repo: "https://github.com/rbenv/rbenv.git"
+    dest: "{{ lookup('env', 'HOME') }}/.rbenv"
+
+- name: Install ruby-build
+  when: not rbenv_dir.stat.exists
+  ansible.builtin.git:
+    repo: "https://github.com/rbenv/ruby-build.git"
+    dest: "{{ lookup('env', 'HOME') }}/.rbenv/plugins/ruby-build"

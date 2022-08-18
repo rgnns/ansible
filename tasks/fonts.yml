@@ -15,5 +15,5 @@
 
 - name: Install Jetbrains Mono Nerd Fonts
   ansible.builtin.copy:
-    src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/jetbrains-mono-nerd-fonts/"
+    src: "{{ lookup('env', 'HOME') }}/personal/dotfiles/fonts/jetbrains-mono-nerd-font/"
     dest: "{{ fonts_path }}"

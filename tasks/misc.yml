@@ -51,6 +51,7 @@
       - gh
       - ghc
       - git
+      - git-delta
       - git-lfs
       - gnu-sed
       - gnutls

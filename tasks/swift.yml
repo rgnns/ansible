@@ -1,0 +1,43 @@
+- name: Check swift installation
+  when: ansible_facts['os_family'] == "Debian"
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/thirdparty/swift/swift-5.6.2"
+  register: swift_dir
+
+- name: Install Swift dependencies
+  when: ansible_facts['os_family'] == "Debian"
+  become: yes
+  apt:
+    name:
+      - binutils
+      - git
+      - gnupg2
+      - libc6-dev
+      - libcurl4
+      - libedit2
+      - libgcc-9-dev
+      - libpython2.7
+      - libsqlite3-0
+      - libstdc++-9-dev
+      - libxml2
+      - libz3-dev
+      - pkg-config
+      - tzdata
+      - uuid-dev
+      - zlib1g-dev
+
+- name: Download Swift
+  when:
+    - ansible_facts['os_family'] == "Debian"
+    - not swift_dir.stat.exists
+  ansible.builtin.get_url:
+    url: https://download.swift.org/swift-5.6.2-release/ubuntu2004/swift-5.6.2-RELEASE/swift-5.6.2-RELEASE-ubuntu20.04.tar.gz
+    dest: "{{ lookup('env', 'HOME') }}/thirdparty/swift/swift-5.6.2.tar.gz"
+
+- name: Unarchive Swift
+  when:
+    - ansible_facts['os_family'] == "Debian"
+    - not swift_dir.stat.exists
+  ansible.builtin.unarchive:
+    src: "{{ lookup('env', 'HOME') }}/thirdparty/swift/swift-5.6.2.tar.gz"
+    dest: "{{ lookup('env', 'HOME') }}/thirdparty/swift/swift-5.6.2"
